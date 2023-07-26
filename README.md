@@ -1,2 +1,0 @@
-# msc
-MSc Project

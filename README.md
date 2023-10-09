@@ -1,2 +1,1 @@
-# msc
-MSc Project
+#BMO

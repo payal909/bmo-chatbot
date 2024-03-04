@@ -116,7 +116,7 @@ with st.sidebar:
     analyze_button = st.button("Load Documents",use_container_width=True,disabled=session.analyze_disabled,on_click=analyse)                           
 
 l,r = st.columns([2,1])
-user_input = r.chat_input("Query",disabled=session.input_disabled)
+user_input = st.chat_input("Query",disabled=session.input_disabled)
 
 if user_input:
     session.transcript.append(["user",user_input])

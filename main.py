@@ -114,8 +114,9 @@ def analyse():
 
 with st.sidebar:
     analyze_button = st.button("Load Documents",use_container_width=True,disabled=session.analyze_disabled,on_click=analyse)                           
-        
-user_input = st.chat_input("Query",disabled=session.input_disabled)
+
+l,r = st.columns([2,1])        
+user_input = l.chat_input("Query",disabled=session.input_disabled)
 
 if user_input:
     session.transcript.append(["user",user_input])
@@ -126,7 +127,6 @@ if user_input:
 
 
 if len(session.transcript)>0:
-    l,r = st.columns([1,1])
     for message in session.transcript:
         if message[0]=="system":
             with r.expander(message[2]):

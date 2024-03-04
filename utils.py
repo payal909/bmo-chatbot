@@ -54,6 +54,10 @@ def setup_page():
     div.block-container {
         padding-top: 0rem;
         }
+    .st-emotion-cache-1ec6rqw {
+        max-width: 500px;
+        min-width: 500px;
+    }
     </style>
     '''
     st.markdown(hide, unsafe_allow_html=True)

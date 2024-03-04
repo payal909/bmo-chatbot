@@ -58,6 +58,9 @@ def setup_page():
         max-width: 500px;
         min-width: 500px;
     }
+    .st-emotion-cache-10oheav {
+        padding: 1rem 1rem;
+    }
     </style>
     '''
     st.markdown(hide, unsafe_allow_html=True)

@@ -127,7 +127,7 @@ Use the following context (delimited by <ctx></ctx>) for finding out the relevan
 
     compare_context = "\n\n".join([f"Relevant points from {doc_name}:\n\n{doc_summary}" for doc_name,doc_summary in summary.items()])
     
-    print(compare_context)
+    print("\n\n",question,"\n\n",compare_context)
     
     compare_system_template = """You are a helpful chatbot who has to answer question of a user from the institute {institute}.
 You will be given relevant points from various documents that will help you answer the user question.

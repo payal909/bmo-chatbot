@@ -92,7 +92,7 @@ def setup_llm():
     claude_models = ["claude-instant-1","claude-2"]
     chat_llm = ChatAnthropic(model=claude_models[1],temperature= 0,max_tokens_to_sample = 512)
     os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-    anthropic_llm = ChatAnthropic(model=claude_models[1],temperature= 0,max_tokens_to_sample = 512)
+    anthropic_llm = ChatAnthropic(model=claude_models[1],temperature= 0,max_tokens_to_sample = 512,verbose=True)
 
     
     return openai_llm, embeddings, anthropic_llm

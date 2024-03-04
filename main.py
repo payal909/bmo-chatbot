@@ -96,7 +96,7 @@ del institutes["BCAR"]
 
 with st.sidebar:
     # l,r = st.columns([1,1.])
-    st.markdown("# Reg Reporting Assistant")
+    st.markdown("# Reg Reporting Assistance")
     # r.image(Image.open('osfi_logo.png'),width=40)
     institute = st.selectbox(label="Institute",options=institutes,label_visibility="hidden")
 

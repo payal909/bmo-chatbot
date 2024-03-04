@@ -121,7 +121,7 @@ if user_input:
     session.transcript.append(["user",user_input])
     with st.spinner("Processing..."):
         bot_details, bot_output = utils.compare_answer(anthropic_llm,anthropic_llm,session,user_input,session.docs)
-    session.transcript.append(["system",bot_details])
+    session.transcript.append(["system",bot_details,user_input])
     session.transcript.append(["assistant",bot_output])
 
 
@@ -129,7 +129,8 @@ if len(session.transcript)>0:
     l,r = st.columns([1,1])
     for message in session.transcript:
         if message[0]=="system":
-            r.chat_message(message[0]).write(message[1])
+            with r.expander(message[2]):
+                st.write(message[1])
         else:
             l.chat_message(message[0]).write(message[1])
 

@@ -122,7 +122,7 @@ Use the following context (delimited by <ctx></ctx>) for finding out the relevan
     compare_chat_prompt = ChatPromptTemplate.from_messages(messages)
     
     summary = dict()
-    for doc_name,doc_txt in tqdm(docs.items()):
+    for doc_name,doc_txt in docs.items():
         summary[doc_name] = summary_llm(compare_chat_prompt.format_prompt(context=doc_txt).to_messages()).content
 
     compare_context = "\n\n".join([f"Relevant points from {doc_name}:\n\n{doc_summary}" for doc_name,doc_summary in summary.items()])

@@ -120,8 +120,10 @@ user_input = st.chat_input("Query",disabled=session.input_disabled)
 if user_input:
     session.transcript.append(["user",user_input])
     with st.spinner("Processing..."):
-        bot_output = utils.compare_answer(anthropic_llm,anthropic_llm,session,user_input,session.docs)
+        bot_details, bot_output = utils.compare_answer(anthropic_llm,anthropic_llm,session,user_input,session.docs)
+    session.transcript.append(["system",bot_details])
     session.transcript.append(["assistant",bot_output])
+
 
 if len(session.transcript)>0:
     for message in session.transcript:

@@ -45,7 +45,7 @@ utils.setup_page()
 session = st.session_state
 utils.setup_session(session)
 
-openai_llm, embeddings, anthropic_llm = utils.setup_llm()
+anthropic_llm = utils.setup_llm()
 
 all_documents = {
     "BCAR"                              :   {"data":"./data/Basel Capital Adequacy Reporting (BCAR) 2023 (2).pdf","index":"Basel Capital Adequacy Reporting (BCAR) 2023 (2)_index"},

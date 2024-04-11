@@ -1,41 +1,13 @@
 import os
 from langchain.vectorstores import FAISS
-
 from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI, AzureChatOpenAI
-# from langchain.llms import AzureOpenAI
-# from langchain.document_loaders import DirectoryLoader,PyPDFLoader
-# from langchain.document_loaders import UnstructuredExcelLoader
-# from langchain.vectorstores import DocArrayInMemorySearch
 from langchain.memory import ConversationBufferMemory
-# from IPython.display import display, Markdown
-# import pandas as pd
-# import gradio as gr
-# from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain import PromptTemplate
-# from langchain.vectorstores import Chroma
 from langchain.agents.tools import Tool
 from langchain.experimental.plan_and_execute import PlanAndExecute, load_agent_executor, load_chat_planner
-# from langchain import OpenAI, VectorDBQA
-# from langchain.chains.router import MultiRetrievalQAChain
 import streamlit as st
-import pandas as pd
-# from langchain.document_loaders import UnstructuredPDFLoader
-# _ = load_dotenv(find_dotenv())
-
-# from langchain.prompts.chat import (
-#     ChatPromptTemplate,
-#     SystemMessagePromptTemplate,
-#     AIMessagePromptTemplate,
-#     HumanMessagePromptTemplate,
-# )
-# from langchain.schema import (
-#     AIMessage,
-#     HumanMessage,
-#     SystemMessage
-# )
-
 import os
 from langchain.llms import GooglePalm
 from langchain.vectorstores import FAISS
@@ -44,22 +16,16 @@ from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI, AzureChatOpenAI, ChatAnthropic
 from langchain.llms import AzureOpenAI
 from langchain.document_loaders import DirectoryLoader,PyPDFLoader
-# from langchain.document_loaders import UnstructuredExcelLoader
-# from langchain.vectorstores import DocArrayInMemorySearch
+
 from langchain.memory import ConversationBufferMemory
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain import PromptTemplate
-# from langchain.vectorstores import Chroma
-# from langchain.agents.tools import Tool
-# from langchain.experimental.plan_and_execute import PlanAndExecute, load_agent_executor, load_chat_planner
-# from langchain import OpenAI, VectorDBQA
-# from langchain.chains.router import MultiRetrievalQAChain
+
 import streamlit as st
 import pandas as pd
 from tqdm import tqdm
 import utils
-# from langchain.document_loaders import UnstructuredPDFLoader
 
 from langchain.prompts.chat import (
     ChatPromptTemplate,

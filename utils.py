@@ -6,21 +6,14 @@ from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI, AzureChatOpenAI, ChatAnthropic
 from langchain.llms import AzureOpenAI
 from langchain.document_loaders import DirectoryLoader,PyPDFLoader
-# from langchain.document_loaders import UnstructuredExcelLoader
-# from langchain.vectorstores import DocArrayInMemorySearch
 from langchain.memory import ConversationBufferMemory
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain import PromptTemplate
-# from langchain.vectorstores import Chroma
-# from langchain.agents.tools import Tool
-# from langchain.experimental.plan_and_execute import PlanAndExecute, load_agent_executor, load_chat_planner
-# from langchain import OpenAI, VectorDBQA
-# from langchain.chains.router import MultiRetrievalQAChain
 import streamlit as st
 import pandas as pd
 from tqdm import tqdm
-# from langchain.document_loaders import UnstructuredPDFLoader
+
 
 from langchain.prompts.chat import (
     ChatPromptTemplate,
@@ -76,23 +69,16 @@ def setup_session(session):
         session.analyze_disabled = False
     if 'institute' not in session:
         session.institute = ""
-    # if 'institute_type' not in session:
-    #     session.institute_type = ""
-    # if "analysis_text" not in session:
-    #     session.analysis_text = ""
-
 def setup_llm():
-    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-    os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-    # embedding_llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0)
-    # embeddings = OpenAIEmbeddings(model="text-embedding-ada-002",chunk_size =1)
+    # os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+    # os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
     
-    os.environ["OPENAI_API_TYPE"] ="azure"
-    os.environ["OPENAI_API_VERSION"] ="2023-05-15"
-    os.environ["OPENAI_API_BASE"] = "https://testavinx.openai.azure.com/"
+    # os.environ["OPENAI_API_TYPE"] ="azure"
+    # os.environ["OPENAI_API_VERSION"] ="2023-05-15"
+    # os.environ["OPENAI_API_BASE"] = "https://testavinx.openai.azure.com/"
 
-    openai_llm = AzureChatOpenAI(deployment_name="gpt-35-turbo",model_name="gpt-35-turbo",temperature=0)
-    embeddings = OpenAIEmbeddings(deployment="embedding1",model="text-embedding-ada-002",openai_api_base="https://testavinx.openai.azure.com/",openai_api_type="azure",chunk_size = 1)
+    # openai_llm = AzureChatOpenAI(deployment_name="gpt-35-turbo",model_name="gpt-35-turbo",temperature=0)
+    # embeddings = OpenAIEmbeddings(deployment="embedding1",model="text-embedding-ada-002",openai_api_base="https://testavinx.openai.azure.com/",openai_api_type="azure",chunk_size = 1)
     
     
 
@@ -102,7 +88,7 @@ def setup_llm():
     anthropic_llm = ChatAnthropic(model=claude_models[1],temperature= 0,max_tokens_to_sample = 512,verbose=True)
 
     
-    return openai_llm, embeddings, anthropic_llm
+    return anthropic_llm
 
 def load_doc(path):
     k=300000

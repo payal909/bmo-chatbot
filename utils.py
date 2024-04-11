@@ -55,7 +55,7 @@ def setup_session(session):
 def setup_llm():
     claude_models = ["claude-instant-1","claude-2","claude-3-haiku-20240307"]
     os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-    anthropic_llm = ChatAnthropic(model=claude_models[2],temperature= 0,max_tokens_to_sample = 512,verbose=True)
+    anthropic_llm = ChatAnthropic(model=claude_models[1],temperature= 0,max_tokens_to_sample = 512,verbose=True)
     return anthropic_llm
 
 def load_doc(path):

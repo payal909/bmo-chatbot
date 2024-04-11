@@ -1,8 +1,6 @@
 import os
-# from dotenv import load_dotenv, find_dotenv
-# from langchain.llms import GooglePalm
 from langchain.vectorstores import FAISS
-# from langchain.embeddings import GooglePalmEmbeddings
+
 from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI, AzureChatOpenAI
 # from langchain.llms import AzureOpenAI

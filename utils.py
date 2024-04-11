@@ -1,30 +1,13 @@
 import os
-from langchain.llms import GooglePalm
-from langchain.vectorstores import FAISS
-from langchain.embeddings import GooglePalmEmbeddings
-from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI, AzureChatOpenAI, ChatAnthropic
-from langchain.llms import AzureOpenAI
+from langchain.chat_models import ChatAnthropic
 from langchain.document_loaders import DirectoryLoader,PyPDFLoader
-from langchain.memory import ConversationBufferMemory
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain import PromptTemplate
 import streamlit as st
-import pandas as pd
-from tqdm import tqdm
-
-
 from langchain.prompts.chat import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
-    AIMessagePromptTemplate,
-    HumanMessagePromptTemplate,
 )
 from langchain.schema import (
-    AIMessage,
-    HumanMessage,
-    SystemMessage
+    HumanMessage
 )
 
 def setup_page():
@@ -70,24 +53,9 @@ def setup_session(session):
     if 'institute' not in session:
         session.institute = ""
 def setup_llm():
-    # os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-    # os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-    
-    # os.environ["OPENAI_API_TYPE"] ="azure"
-    # os.environ["OPENAI_API_VERSION"] ="2023-05-15"
-    # os.environ["OPENAI_API_BASE"] = "https://testavinx.openai.azure.com/"
-
-    # openai_llm = AzureChatOpenAI(deployment_name="gpt-35-turbo",model_name="gpt-35-turbo",temperature=0)
-    # embeddings = OpenAIEmbeddings(deployment="embedding1",model="text-embedding-ada-002",openai_api_base="https://testavinx.openai.azure.com/",openai_api_type="azure",chunk_size = 1)
-    
-    
-
-    claude_models = ["claude-instant-1","claude-2"]
-    chat_llm = ChatAnthropic(model=claude_models[1],temperature= 0,max_tokens_to_sample = 512)
+    claude_models = ["claude-instant-1","claude-2","claude-3-opus-20240229"]
     os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-    anthropic_llm = ChatAnthropic(model=claude_models[1],temperature= 0,max_tokens_to_sample = 512,verbose=True)
-
-    
+    anthropic_llm = ChatAnthropic(model=claude_models[2],temperature= 0,max_tokens_to_sample = 512,verbose=True)
     return anthropic_llm
 
 def load_doc(path):

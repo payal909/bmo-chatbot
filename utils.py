@@ -88,13 +88,14 @@ Use the following context (delimited by <ctx></ctx>) for finding out the relevan
     
     details = "\n\n"+question+"\n\n"+compare_context
     
-    compare_system_template = """You are a helpful chatbot who has to answer question of a user from the institute {institute}.
-You will be given relevant points from various documents that will help you answer the user question.
-Below is a list of relevant points along with the name of the document from where thoes points are from.
-Consider all the documents provided to you and answer the question by choosing all the relevant points to the question.
-You might have to compare points from more than one document to answer the question.
-
-{context}"""
+    compare_system_template = """You are a Reg Reporting Assistant who has to answer question of a user from the institute {institute}.
+Below is a list of relevant points along with the name of the document from where these points are from.
+Consider all the documents provided to you and answer the question by analysising the relevant points from the {institute} and Payment Services Act both.
+Just give the concluded response betwwen the relevant points from document 1 and document 2.  
+Exception: If you have asked a question like based on the Payment service that {institute} follow that is not mentioned in annual report than go through the following context:
+(Account issuance service,Domestic money transfer service,Cross-border money transfer service, Merchant acquisition service, E-money issuance service) are the set of payment services OCBC Bank provides out of this list and answer the question by taking these payment services into account.
+{context}
+"""
 
     compare_system_prompt = SystemMessagePromptTemplate.from_template(template=compare_system_template)
     messages = [compare_system_prompt,HumanMessage(content=question)]

@@ -78,8 +78,8 @@ def load_anuual_report(path):
 
 def compare_answer(summary_llm,chat_llm,session,question,docs):
     
-    retrival_system_template = """You are a helpful assistant, You need to extract as much text as you can which is relater or relevant to the answer of the user question from the context provided.
-Do not try to answer the question, just extract the text relevant to the answer of the user question.
+    retrival_system_template = """You are a Reg Reporting Assistant , You need to extract as much content as you can which is relater or relevant to the answer of the user question from the context provided.
+Do not try to answer the question, just extract the text relevant to the answer of the user question that will help user to find there answer futher.
 Use the following context (delimited by <ctx></ctx>) for finding out the relevant text:
 
 <ctx>
@@ -98,12 +98,11 @@ Use the following context (delimited by <ctx></ctx>) for finding out the relevan
     
     details = "\n\n"+question+"\n\n"+compare_context
     
-    compare_system_template = """You are a Reg Reporting Assistant who has to answer question of a user from the institute {institute}.
+    compare_system_template = """You are a Reg Reporting Assistant who have to answer question of a user from the institute {institute}.
 Below is a list of relevant points along with the name of the document from where these points are from.
-Consider all the documents provided to you and answer the question by analysising the relevant points from the {institute} and Payment Services Act both.
-Just give the concluded response betwwen the relevant points from document 1 and document 2.  
-Exception: If you have asked a question like based on the Payment service that {institute} follow that is not mentioned in annual report than go through the following context:
-(Account issuance service,Domestic money transfer service,Cross-border money transfer service, Merchant acquisition service, E-money issuance service) are the set of payment services OCBC Bank provides out of this list and answer the question by taking these payment services into account.
+Consider all the documents provided to you and answer the question by analysising the relevant points from the {institute} and BCAR both.
+Just give the concluded answer between the relevant points from document 1 and document 2 in the response.  
+
 {context}
 """
 

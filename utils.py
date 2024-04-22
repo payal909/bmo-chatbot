@@ -74,7 +74,7 @@ def load_anuual_report(path):
         doc = DirectoryLoader(path=path,glob="**/*.pdf")
     document = doc.load()
     context = "\n\n".join([document[i].page_content for i in range(len(document))])
-    return context[10000:k]
+    return context[100000:k]
 
 def compare_answer(summary_llm,chat_llm,session,question,docs):
     

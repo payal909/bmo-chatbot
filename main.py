@@ -9,7 +9,7 @@ anthropic_llm = utils.setup_llm()
 
 all_documents = {
     "BCAR"                              :   {"data":"./data/Basel Capital Adequacy Reporting (BCAR) 2023 (2).pdf","index":"Basel Capital Adequacy Reporting (BCAR) 2023 (2)_index"},
-    "Bank of Montreal (BMO)"            :   {"data":"./data/bmo_ar2022_removed.pdf","index":"bmo_ar2022 (2)_index"},
+    "Bank of Montreal (BMO)"            :   {"data":"./data/bmo_ar2022 (2).pdf","index":"bmo_ar2022 (2)_index"},
     "Versa Bank (VB)"                   :   {"data":"./data/Versa bank","index":"VBAR_index"},
     "Home Bancorp (HB)"                 :   {"data":"./data/Home Bancorp 2022 Annual Report.pdf"},
     "National Bank of Canada (NBC)"     :   {"data":"./data/NATIONAL BANK OF CANADA_ 2022 Annual Report (1).pdf","index":"NATIONAL BANK OF CANADA_ 2022 Annual Report (1)_index"},
@@ -30,7 +30,7 @@ def analyse():
             session.analyze_disabled = True
             session.institute = institute
             session.docs = {
-            f"{session.institute} Annual Report"        :   utils.load_doc(all_documents[session.institute]["data"]),
+            f"{session.institute} Annual Report"        :   utils.load_anuual_report(all_documents[session.institute]["data"]),
             "Basel Capital Adequacy Reporting (BCAR)"   :   utils.load_doc(all_documents["BCAR"]["data"]),
             }                            
             session.input_disabled = False

@@ -66,6 +66,16 @@ def load_doc(path):
     context = "\n\n".join([document[i].page_content for i in range(len(document))])
     return context[:k]
 
+def load_anuual_report(path):
+    k=500000
+    if path.endswith(".pdf"):
+        doc = PyPDFLoader(file_path=path)
+    else:
+        doc = DirectoryLoader(path=path,glob="**/*.pdf")
+    document = doc.load()
+    context = "\n\n".join([document[i].page_content for i in range(len(document))])
+    return context[10000:k]
+
 def compare_answer(summary_llm,chat_llm,session,question,docs):
     
     retrival_system_template = """You are a helpful assistant, You need to extract as much text as you can which is relater or relevant to the answer of the user question from the context provided.

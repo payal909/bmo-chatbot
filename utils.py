@@ -101,7 +101,8 @@ Use the following context (delimited by <ctx></ctx>) for finding out the relevan
     compare_system_template = """You are a Reg Reporting Assistant who have to answer question of a user from the institute {institute}.
 Below is a list of relevant points along with the name of the document from where these points are from.
 Consider all the documents provided to you and answer the question by analysising the relevant points from the {institute} and BCAR both.
-Just give the concluded answer between the relevant points from document 1 and document 2 in the response.  
+Just give the concluded answer between the relevant points from document 1 and document 2 in the response.Give reponse in points and you can put more weightage
+to the concluded answer. Give a detailed concluded answer.   
 
 {context}
 """

@@ -1,12 +1,11 @@
 import streamlit as st
-from utils_new import setup_page, setup_session,  compare_answer, two_documents
-
+import utils_new 
 # Page layout and styling
-setup_page()
+util_new.setup_page()
 
 # Session initialization
 session = st.session_state
-setup_session(session)
+util_new.setup_session(session)
 
 # Load Gemini model
 # gemini_llm = setup_llm()
@@ -58,7 +57,7 @@ user_input = st.chat_input("Query", disabled=session.input_disabled)
 if user_input:
     session.transcript.append(["user", user_input])
     with st.spinner("Processing..."):
-        bot_details, bot_output = compare_answer(
+        bot_details, bot_output = utils_new.compare_answer(
             user_input, session.docs
         )
     session.transcript.append(["system", bot_details, user_input])

@@ -51,11 +51,11 @@ Use the document for finding out the relevant text: from question: {question}
     finalprompt = f"""You are a Reg Reporting Assistant who has to answer the question of a user from the institute {institute}.
 Below is a list of relevant points along with the name of the document from where these points are from.
 Consider all the documents provided to you and answer the question by analyzing the relevant points from the {institute} and Payment Services Act both.
-Just give the concluded response between the relevant points from document 1 and document 2(put it as points or step by step if possible).
 It's banking related question give if possible mention the references from the documents.
-Exception: If you have asked a question like based on the Payment service that {institute} follows that is not mentioned in the annual report, then go through the following context:
-(Account issuance service, Domestic money transfer service, Cross-border money transfer service, Merchant acquisition service, E-money issuance service) are the set of payment services {institute} provides out of this list and answer the question by taking these payment services into account.
+The relevant points from the documents are as follow:
 {context}
+
+Just give the concluded response between the relevant points from document 1 and document 2(put it as points or step by step if possible).
 the human question is as follow:
 human question: {question}
 """ 

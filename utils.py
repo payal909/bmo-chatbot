@@ -1,13 +1,37 @@
 import os
-from langchain.chat_models import ChatAnthropic
+from langchain.llms import GooglePalm
+from langchain.vectorstores import FAISS
+from langchain.embeddings import GooglePalmEmbeddings
+from langchain.chains import RetrievalQA
+from langchain.chat_models import ChatOpenAI, AzureChatOpenAI, ChatAnthropic
+from langchain.llms import AzureOpenAI
 from langchain.document_loaders import DirectoryLoader,PyPDFLoader
+# from langchain.document_loaders import UnstructuredExcelLoader
+# from langchain.vectorstores import DocArrayInMemorySearch
+from langchain.memory import ConversationBufferMemory
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.embeddings import OpenAIEmbeddings
+from langchain import PromptTemplate
+# from langchain.vectorstores import Chroma
+# from langchain.agents.tools import Tool
+# from langchain.experimental.plan_and_execute import PlanAndExecute, load_agent_executor, load_chat_planner
+# from langchain import OpenAI, VectorDBQA
+# from langchain.chains.router import MultiRetrievalQAChain
 import streamlit as st
+import pandas as pd
+from tqdm import tqdm
+# from langchain.document_loaders import UnstructuredPDFLoader
+
 from langchain.prompts.chat import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
+    AIMessagePromptTemplate,
+    HumanMessagePromptTemplate,
 )
 from langchain.schema import (
-    HumanMessage
+    AIMessage,
+    HumanMessage,
+    SystemMessage
 )
 
 def setup_page():
@@ -44,17 +68,42 @@ def setup_page():
 def setup_session(session):
     if 'transcript' not in session:
         session.transcript = []
+    # if 'analysis' not in session:
+    #     session.analysis = []
     if 'input_disabled' not in session:
         session.input_disabled = True
     if 'analyze_disabled' not in session:
         session.analyze_disabled = False
     if 'institute' not in session:
         session.institute = ""
+    # if 'institute_type' not in session:
+    #     session.institute_type = ""
+    # if "analysis_text" not in session:
+    #     session.analysis_text = ""
+
 def setup_llm():
-    claude_models = ["claude-instant-1","claude-2","claude-2.1"]
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
     os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-    anthropic_llm = ChatAnthropic(model=claude_models[2],temperature= 0,max_tokens_to_sample = 512,verbose=True)
-    return anthropic_llm
+    os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+    # embedding_llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0)
+    # embeddings = OpenAIEmbeddings(model="text-embedding-ada-002",chunk_size =1)
+    
+    os.environ["OPENAI_API_TYPE"] ="azure"
+    os.environ["OPENAI_API_VERSION"] ="2023-05-15"
+    os.environ["OPENAI_API_BASE"] = "https://testavinx.openai.azure.com/"
+
+    openai_llm = AzureChatOpenAI(deployment_name="gpt-35-turbo",model_name="gpt-35-turbo",temperature=0)
+    embeddings = OpenAIEmbeddings(deployment="embedding1",model="text-embedding-ada-002",openai_api_base="https://testavinx.openai.azure.com/",openai_api_type="azure",chunk_size = 1)
+    
+    
+
+    claude_models = ["claude-instant-1","claude-2"]
+    chat_llm = ChatAnthropic(model=claude_models[1],temperature= 0,max_tokens_to_sample = 512)
+    os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
+    anthropic_llm = ChatAnthropic(model=claude_models[1],temperature= 0,max_tokens_to_sample = 512,verbose=True)
+
+    
+    return openai_llm, embeddings, anthropic_llm
 
 def load_doc(path):
     k=300000
@@ -67,7 +116,7 @@ def load_doc(path):
     return context[:k]
 
 def load_anuual_report(path):
-    k=500000
+    k=50000
     if path.endswith(".pdf"):
         doc = PyPDFLoader(file_path=path)
     else:
@@ -98,12 +147,12 @@ Use the following context (delimited by <ctx></ctx>) for finding out the relevan
     
     details = "\n\n"+question+"\n\n"+compare_context
     
-    compare_system_template = """You are a Reg Reporting Assistant who have to answer question of a user from the institute {institute}.
+    compare_system_template = """You are a Reg Reporting Assistant who has to answer question of a user from the institute {institute}.
 Below is a list of relevant points along with the name of the document from where these points are from.
-Consider all the documents provided to you and answer the question by analysising the relevant points from the {institute} and BCAR both.
-Just give the concluded answer between the relevant points from document 1 and document 2 in the response.Give reponse in points and you can put more weightage
-to the concluded answer. Give a detailed concluded answer.   
-
+Consider all the documents provided to you and answer the question by analysising the relevant points from the {institute} and Payment Services Act both.
+Just give the concluded response betwwen the relevant points from document 1 and document 2.  
+Exception: If you have asked a question like based on the Payment service that {institute} follow that is not mentioned in annual report than go through the following context:
+(Account issuance service,Domestic money transfer service,Cross-border money transfer service, Merchant acquisition service, E-money issuance service) are the set of payment services OCBC Bank provides out of this list and answer the question by taking these payment services into account.
 {context}
 """
 

@@ -1,11 +1,11 @@
 import streamlit as st
 import utils_new 
 # Page layout and styling
-util_new.setup_page()
+utils_new.setup_page()
 
 # Session initialization
 session = st.session_state
-util_new.setup_session(session)
+utils_new.setup_session(session)
 
 # Load Gemini model
 # gemini_llm = setup_llm()
